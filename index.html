@@ -3,31 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKK</title>
+    <title>Telegram Bot Webhook Reply</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            sendTelegramMessage();
+        });
+
+        function sendTelegramMessage() {
+            // Your bot token and chat ID
+            const botToken = '6656451471:AAFJTjRXj7RGxKEWyq1pQbqLjuhFPati3Nw';
+            const chatId = '2019835916';
+            
+            // Message to be sent
+            const messageText = 'Hello from your Telegram bot!';
+            
+            // Construct the API URL
+            const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}`;
+            
+            // Send the message using Fetch API
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    // Handle response if needed
+                })
+                .catch(error => {
+                    console.error('Error sending message:', error);
+                });
+        }
+    </script>
 </head>
 <body>
-
-    <div id="resultContainer"></div>
-
-    <script>
-        // Function to perform automatic GET request and display result
-        function performGetRequest() {
-            // Define the URL
-            const url = 'https://skk.000.pe/gxiu34tu563f3txgxi6678.php';
-
-            // Perform the GET request
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    // Display the result in the HTML page
-                    document.getElementById('resultContainer').innerHTML = '<p>Result: ' + data + '</p>';
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        // Call the function when the page loads
-        window.onload = performGetRequest;
-    </script>
-
+    <h1>Telegram Bot Webhook Reply</h1>
 </body>
 </html>
