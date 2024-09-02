@@ -3,37 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Bot Webhook Reply</title>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            sendTelegramMessage();
-        });
-
-        function sendTelegramMessage() {
-            // Your bot token and chat ID
-            const botToken = 'bt';
-            const chatId = 'ci';
-            
-            // Message to be sent
-            const messageText = 'Hello from your Telegram bot!';
-            
-            // Construct the API URL
-            const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}`;
-            
-            // Send the message using Fetch API
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    // Handle response if needed
-                })
-                .catch(error => {
-                    console.error('Error sending message:', error);
-                });
+    <title>Display JSON Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
-    </script>
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            white-space: pre-wrap; /* Allows the JSON to be displayed properly */
+        }
+    </style>
 </head>
 <body>
-    <h1>Telegram Bot Webhook Reply</h1>
+    <h1>JSON Data</h1>
+    <pre id="json-container"></pre>
+
+    <script>
+        // Example JSON data
+        const jsonData = {
+            "name": "John Doe",
+            "age": 30,
+            "city": "New York"
+        };
+
+        // Function to display JSON data
+        function displayJson(json) {
+            const container = document.getElementById('json-container');
+            container.textContent = JSON.stringify(json, null, 2); // Format JSON with indentation
+        }
+
+        // Display the JSON data
+        displayJson(jsonData);
+    </script>
 </body>
 </html>
