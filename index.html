@@ -1,24 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Page Iframe</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden; /* Prevents scrollbars */
-        }
-        iframe {
-            border: none;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Bot Interaction</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    textarea { width: 100%; height: 100px; }
+    button { margin-top: 10px; padding: 10px 20px; }
+    .response { margin-top: 20px; color: green; }
+  </style>
 </head>
 <body>
-    <iframe src="http://www.skk.000.pe/public/" title="Full Page Iframe"></iframe>
+
+  <h2>Send a Message to Telegram Bot</h2>
+  <textarea id="message" placeholder="Type your message here..."></textarea>
+  <button onclick="sendMessage()">Send</button>
+
+  <div class="response" id="response"></div>
+
+  <script>
+    async function sendMessage() {
+      const message = document.getElementById('message').value;
+      const chatId = '<YOUR_CHAT_ID>'; // तिम्रो Telegram Chat ID
+      const botToken = '<YOUR_BOT_TOKEN>'; // तिम्रो Telegram Bot Token
+
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+      const responseElement = document.getElementById('response');
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+          })
+        });
+
+        if (res.ok) {
+          responseElement.innerText = 'Message sent successfully!';
+        } else {
+          const errorData = await res.json();
+          responseElement.innerText = `Error: ${errorData.description}`;
+        }
+      } catch (error) {
+        responseElement.innerText = `Request failed: ${error.message}`;
+      }
+    }
+  </script>
+
 </body>
 </html>
